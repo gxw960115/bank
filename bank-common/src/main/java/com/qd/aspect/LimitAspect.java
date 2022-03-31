@@ -2,6 +2,9 @@ package com.qd.aspect;
 
 import com.google.common.collect.ImmutableList;
 import com.qd.annotation.Limit;
+import com.qd.exception.BadRequestException;
+import com.qd.utils.RequestHolder;
+import com.qd.utils.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -27,7 +30,7 @@ public class LimitAspect {
         this.redisTemplate = redisTemplate;
     }
 
-    @Pointcut("@annotation(me.zhengjie.annotation.Limit)")
+    @Pointcut("@annotation(com.qd.annotation.Limit)")
     public void pointcut() {
     }
 
