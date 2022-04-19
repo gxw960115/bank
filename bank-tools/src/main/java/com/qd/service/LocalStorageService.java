@@ -1,5 +1,8 @@
 package com.qd.service;
 
+import com.qd.domain.LocalStorage;
+import com.qd.service.dto.LocalStorageDto;
+import com.qd.service.dto.LocalStorageQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
