@@ -2,6 +2,7 @@ package com.qd.service;
 
 import com.qd.domain.QiniuConfig;
 import com.qd.domain.QiniuContent;
+import com.qd.service.dto.QiniuQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 

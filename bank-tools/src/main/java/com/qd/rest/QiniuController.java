@@ -2,7 +2,9 @@ package com.qd.rest;
 
 import com.qd.annotation.Log;
 import com.qd.domain.QiniuConfig;
+import com.qd.domain.QiniuContent;
 import com.qd.service.QiNiuService;
+import com.qd.service.dto.QiniuQueryCriteria;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +13,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -32,5 +40,23 @@ public class QiniuController {
         qiNiuService.config(qiniuConfig);
         qiNiuService.update(qiniuConfig.getType());
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ApiOperation("导出数据")
+    @GetMapping(value = "/download")
+    public void exportQiNiu(HttpServletResponse response, QiniuQueryCriteria criteria) throws IOException {
+        qiNiuService.downloadList(qiNiuService.queryAll(criteria),response);
+    }
+
+    @Log("上传文件")
+    @ApiOperation("上传文件")
+    @PostMapping
+    public ResponseEntity<Object> uploadQiNiu(@RequestParam MultipartFile file){
+        QiniuContent qiniuContent = qiNiuService.upload(file, qiNiuService.find());
+        Map<String,Object> map = new HashMap<>(3);
+        map.put("id",qiniuContent.getId());
+        map.put("error",0);
+        map.put("data",new String[]{qiniuContent.getUrl()});
+        return new ResponseEntity<>(map,HttpStatus.OK);
     }
 }
