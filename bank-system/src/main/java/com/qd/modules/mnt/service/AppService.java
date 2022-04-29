@@ -3,9 +3,10 @@ package com.qd.modules.mnt.service;
 import com.qd.modules.mnt.domain.App;
 import com.qd.modules.mnt.service.dto.AppDto;
 import com.qd.modules.mnt.service.dto.AppQueryCriteria;
+import org.springframework.data.domain.Pageable;
 
 import javax.servlet.http.HttpServletResponse;
-import java.awt.print.Pageable;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
